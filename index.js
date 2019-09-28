@@ -52,6 +52,7 @@ function mkImport(registry, loader) {
 import Axios from 'axios'
 import path from 'path'
 export default async function extsModule({ manifest, registry, index, verbose }) {
+    console.log(`[info] register plugin externalComponent`)
     this.addPlugin(path.resolve(__dirname, 'lib', 'externalComponent.js'))
 
     const externalModules = registry ? (await Axios.get(`${registry}/${index || 'latest.json'}`)).data : {}
