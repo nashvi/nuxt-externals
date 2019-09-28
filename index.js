@@ -76,5 +76,5 @@ export default async function extsModule({ manifest, registry, index, verbose })
         }
     })
 
-    this.addPlugin(path.resolve(__dirname, 'lib/externalComponent.js'))
+    this.addPlugin(path.resolve(__dirname, 'lib', 'externalComponent.js'))
 }
