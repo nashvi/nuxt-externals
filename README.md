@@ -1,20 +1,19 @@
+```bash
+npm -D i git+https://github.com/murphil/nuxt-externals.git
+```
+
 `nuxt.config.js` 中添加
 
 ```js
-plugins: [
-  {
-    src: '~/plugins/externalComponent',
-    // mode: 'client',
-  }
-]
-//......
 modules: [
   {
-    src: '~/modules/extsModule', options: {
+    src: 'nuxt-externals', options: {
       manifest: path.resolve(path.join(__dirname, './manifest')),
       registry: 'http://vue.d',
-      verbose: true,
-      // index: 'latest.json',
+      verbose: true
+      /*
+      index: 'latest.json',
+      */
     }
   }
 ]

@@ -50,6 +50,7 @@ function mkImport(registry, loader) {
 }
 
 import Axios from 'axios'
+import path from 'path'
 export default async function extsModule({ manifest, registry, index, verbose }) {
     const externalModules = registry ? (await Axios.get(`${registry}/${index || 'latest.json'}`)).data : {}
     if (verbose) Object.keys(externalModules).forEach(k => {
@@ -57,8 +58,7 @@ export default async function extsModule({ manifest, registry, index, verbose })
     })
     const projExts = mkProjExts(require(manifest), externalModules)
     const impStmt = mkImport(registry, 'externalComponent')
-    const self = this
-    self.extendBuild((config, { isClient, isServer }) => {
+    this.extendBuild((config, { isClient, isServer }) => {
         if (isClient) {
             config.externals = (context, request, callback) => {
                 let r = projExts(request)
@@ -75,4 +75,6 @@ export default async function extsModule({ manifest, registry, index, verbose })
             })
         }
     })
+
+    this.addPlugin(path.resolve(__dirname, 'lib/externalComponent.js'))
 }
