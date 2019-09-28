@@ -1,9 +1,9 @@
 function matchRegexp(o) {
     const no = []
     Object.keys(o).forEach(k => {
-        const nk = new RegExp(k)
+        const kreg = new RegExp(k)
         no.push([
-            nk, o[k]
+            kreg, o[k]
         ])
     })
     return (pattern, ...rest) => {
