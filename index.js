@@ -52,6 +52,8 @@ function mkImport(registry, loader) {
 import Axios from 'axios'
 import path from 'path'
 export default async function extsModule({ manifest, registry, index, verbose }) {
+    this.addPlugin(path.resolve(__dirname, 'lib', 'externalComponent.js'))
+
     const externalModules = registry ? (await Axios.get(`${registry}/${index || 'latest.json'}`)).data : {}
     if (verbose) Object.keys(externalModules).forEach(k => {
         console.log(`${k} ==> ${externalModules[k]}`)
@@ -75,6 +77,4 @@ export default async function extsModule({ manifest, registry, index, verbose })
             })
         }
     })
-
-    this.addPlugin(path.resolve(__dirname, 'lib', 'externalComponent.js'))
 }
